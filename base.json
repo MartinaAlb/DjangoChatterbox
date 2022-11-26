@@ -1,0 +1,1 @@
+[{"model": "base.room", "pk": 1, "fields": {"name": "Django", "description": "Zkušební první místnost", "created": "2022-11-25T21:35:06.468Z", "updated": "2022-11-25T21:35:06.468Z", "participants": []}}]
