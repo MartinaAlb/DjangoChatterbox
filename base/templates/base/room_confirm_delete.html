@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="box">
+            <p>Are you sure you want to delte room "{{ object.name }}"?</p>
+            <button type="submit">YES</button>
+            <a href="{% url 'rooms' %}">Cancel</a>
+        </div>
+    </form>
+{% endblock %}
+
+
+

@@ -1,0 +1,11 @@
+<ul>
+    <li class="first active">
+        <a href="{% url 'rooms' %}">Rooms</a>
+    </li>
+    <li>
+        <a href="{% url 'room_create' %}">Create room</a>
+    </li>
+    <li class="last-child">
+        {{ user.username }}
+    </li>
+</ul><br class="clearfix"/>

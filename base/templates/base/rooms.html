@@ -2,7 +2,15 @@
 
 {% block content %}
     <h1>Rooms</h1>
-    {% for room in object_list %}
-        <p><a href="{% url 'room' room.id %}">{{ room.name }}</a></p>
-    {% endfor %}
+    <br>
+    <div class="box">
+        {% for room in object_list %}
+            <div class="last-child">
+                <a href="{% url 'room_update' room.id %}">Edit</a>
+                <a href="{% url 'room_delete' room.id %}">Delete</a>
+            </div>
+            <p><a href="{% url 'room' room.id %}"><b>{{ room.name }}</b></a></p>
+            <div class="box">{{ room.description }}</div>
+        {% endfor %}
+    </div>
 {% endblock %}
