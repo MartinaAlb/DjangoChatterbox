@@ -3,7 +3,7 @@ from django.http import HttpResponse, request
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
 
-from base.forms import RoomForm
+from base.forms import RoomForm, LOGGER
 from base.models import Room, Message
 
 
@@ -69,6 +69,11 @@ class RoomCreateView(CreateView):
     form_class = RoomForm
     success_url = reverse_lazy('rooms')
 
+    # zápis do terminálu - slovník, co uživatel zapíše do formuláře - přes logger
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        LOGGER.warning(form.cleaned_data)
+        return result
 
 class RoomUpdateView(UpdateView):
     template_name = 'base/room_form.html'
