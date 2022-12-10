@@ -33,4 +33,4 @@ class RoomForm(ModelForm):
             validation_error = "Name must contains min. 2 characters."
             LOGGER.warning(f'{name} : {validation_error}')
             raise ValidationError(validation_error)
-        return name
+        return name.capitalize()

@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, request
 from django.urls import reverse_lazy
@@ -28,6 +30,7 @@ class RoomsView(ListView):
     # musíme v rooms.py zmenit rooms na object_list, ušetříme si jeden select
 
 
+@login_required
 def room(request, pk):
     room = Room.objects.get(id=pk)
 
@@ -63,7 +66,9 @@ def room(request, pk):
 #         )
 #         return super().form_valid(form)
 # změnou formview na createview si ušetříme psaní té funkce, ale musíme do form.py doplnit třídu meta
-class RoomCreateView(CreateView):
+
+
+class RoomCreateView(LoginRequiredMixin, CreateView):
     template_name = 'base/room_form.html'
     extra_context = {'title' : 'Create new room'}
     form_class = RoomForm
@@ -75,7 +80,8 @@ class RoomCreateView(CreateView):
         LOGGER.warning(form.cleaned_data)
         return result
 
-class RoomUpdateView(UpdateView):
+
+class RoomUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'base/room_form.html'
     extra_context = {'title': 'Update existing room'}
     form_class = RoomForm
@@ -83,7 +89,7 @@ class RoomUpdateView(UpdateView):
     model = Room
 
 
-class RoomDeleteView(DeleteView):
+class RoomDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'base/room_confirm_delete.html'
     extra_context = {'title': 'careful, you are about to be deleted this room'}
     success_url = reverse_lazy('rooms')
