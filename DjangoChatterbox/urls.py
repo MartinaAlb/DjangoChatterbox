@@ -22,9 +22,10 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+# v produkčním prostředí bychom tuto url zakomentovali a nedostaneme se do administrace
     path('hello', base.views.hello),
     path('', base.views.RoomsView.as_view(), name='rooms'),
-    path('room/detial/<pk>/', base.views.room, name='room'),
+    path('room/detail/<pk>/', base.views.room, name='room'),
     path('room/create/', base.views.RoomCreateView.as_view(), name='room_create'),
     path('room/update/<pk>', base.views.RoomUpdateView.as_view(), name='room_update'),
     path('room/delete/<pk>', base.views.RoomDeleteView.as_view(), name='room_delete'),
@@ -35,5 +36,7 @@ urlpatterns = [
     path('accounts/password_change/done', PasswordChangeDoneView.as_view(template_name="registration/password_change_done.html"), name='password_change_done'),
     path('accounts/signup', accounts.views.SignUpView.as_view(), name='signup'),
 
-
 ]
+
+handler403 = 'base.views.handler403'
+

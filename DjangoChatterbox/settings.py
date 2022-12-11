@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    # v produkčním prostředí bychom tuto první aplikaci zakomentovali (a ještě zakomentovat adresu v url - případně jen url adresu) a nedostaneme se do administrace
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

@@ -9,6 +9,8 @@ from base.forms import RoomForm, LOGGER
 from base.models import Room, Message
 
 
+
+
 # Create your views here.
 def hello(request):
     s = request.GET.get('s', '')
@@ -104,5 +106,10 @@ class RoomDeleteView(StaffRequiredMixin, PermissionRequiredMixin, LoginRequiredM
     success_url = reverse_lazy('rooms')
     model = Room
     permission_required = 'base.delete_room'
+
+
+def handler403(request, exception):
+    return render(request, '403.html', status=403)
+
 
 
