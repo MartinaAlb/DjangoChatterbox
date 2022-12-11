@@ -1,19 +1,27 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <div class="last-child">
+
+        <div class="last-child">
+            {% if perms.base.change_room %}
                 <a href="{% url 'room_update' room.id %}">Edit</a>
+            {% endif %}
+            {% if perms.base.delete_room and perms.base.delete_message and user.is_staff %}
                 <a href="{% url 'room_delete' room.id %}">Delete</a>
-    </div>
+            {% endif %}
+        </div>
+
     <h1>{{ room.name }}</h1>
     <br>
     <div class="box">{{ room.description }}</div>
-    <div class="box room__message">
-        <form method="post">
+    {% if perms.base.add_message %}
+        <div class="box room__message">
+            <form method="post">
             {% csrf_token %}
             <input name="body" placeholder="Write your message here..."/>
-    </form>
-    </div>
+            </form>
+        </div>
+    {% endif %}
     {% for message in messages %}
         <div class="message">{{ message.body }}</div>
     {% endfor %}

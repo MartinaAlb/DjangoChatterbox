@@ -6,9 +6,13 @@
     <div class="box">
         {% for room in object_list %}
             <div class="last-child">
+            {% if perms.base.change_room %}
                 <a href="{% url 'room_update' room.id %}">Edit</a>
+            {% endif %}
+            {% if perms.base.delete_room and perms.base.delete_message and user.is_staff %}
                 <a href="{% url 'room_delete' room.id %}">Delete</a>
-            </div>
+            {% endif %}
+        </div>
             <p><a href="{% url 'room' room.id %}"><b>{{ room.name|capfirst }}</b></a></p>
 {#            |capfirst - za promennou na urovni stranky se budou vsechny nazvy mistnosti psat s velkym prvnim pismenem, ale nezasahujme do dat v databazi#}
 {#            lepší je to udělat u clean name ve forms.py return name.capitalize() - udrzíme data co nejcistcí uz na úrovni databaze#}
