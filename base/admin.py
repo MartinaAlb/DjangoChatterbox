@@ -22,12 +22,29 @@ class MessageAdmin(ModelAdmin):
     fieldsets = [
         (None, {'fields': ['id', 'body']}),
         ('Detail', {'fields': ['created', 'updated'],
-                    'description': ['Detailed information about room']}),
+                    'description': 'Detailed information about message'}),
         ('User information', {'fields': ['user']}),
     ]
     readonly_fields = ['id', 'created', 'updated']
 
+class RoomAdmin(ModelAdmin):
+    # ListView
+    ordering = ['id']
+    list_display = ['id', 'name', 'description']
+    list_display_links = ['name', 'id']
+    list_per_page = 20
+    search_fields = ['name', 'description']
+
+
+    # FormView
+    fieldsets = [
+        (None, {'fields': ['id', 'name', 'description']}),
+        ('Detail', {'fields': ['participants', 'created', 'updated'],
+                    'description': 'Detailed information about room'}),
+
+    ]
+    readonly_fields = ['id', 'created', 'updated']
 
 # Register your models here.
-admin.site.register(Room)
+admin.site.register(Room, RoomAdmin)
 admin.site.register(Message, MessageAdmin)
