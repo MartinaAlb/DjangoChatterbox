@@ -22,7 +22,26 @@
             </form>
         </div>
     {% endif %}
-    {% for message in messages %}
-        <div class="message">{{ message.body }}</div>
-    {% endfor %}
+
+        {% for message in messages %}
+            {% if user == message.user %}
+                <div class="box">
+                <div style="float: right"><b>{{ message.user }}</b> [{{ message.created }}] </div>
+                <div class="message" style="float: right; background-color: #e16060; color: white;" >{{ message.body }}</div>
+                </div>
+            {% else %}
+                <div class="box">
+                <div><b>{{ message.user }}</b> [{{ message.created }}] </div>
+                <div class="message" style="float: right">{{ message.body }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+
+
+
+
+
+
+
 {% endblock %}
