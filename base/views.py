@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, request
 from django.urls import reverse_lazy
@@ -15,6 +16,15 @@ from base.models import Room, Message
 def hello(request):
     s = request.GET.get('s', '')
     return HttpResponse(f'Ahoj {s}!!!')
+
+def search(request):
+    q = request.GET.get('q', '')
+    rooms = Room.objects.filter(
+        Q(name__icontains=q) |
+        Q(description__icontains=q)
+    )
+    context = {'object_list': rooms}
+    return render(request, 'base/rooms.html', context)
 
 
 # def rooms(request):
