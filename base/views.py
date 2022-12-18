@@ -17,6 +17,8 @@ def hello(request):
     s = request.GET.get('s', '')
     return HttpResponse(f'Ahoj {s}!!!')
 
+@login_required
+@permission_required(['base.view_room'])
 def search(request):
     q = request.GET.get('q', '')
     rooms = Room.objects.filter(
@@ -50,7 +52,7 @@ def room(request, pk):
 
     # POST
     if request.method == 'POST':
-        if request.user.has_perm('base.add.message'):
+        if request.user.has_perm('base.add_message'):
             Message.objects.create(
                 user=request.user,
                 room=room,

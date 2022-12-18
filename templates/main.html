@@ -14,16 +14,18 @@
         <div id="logo">
             <h1>Chatterbox</h1>
         </div>
-        <div id="search">
-            <form action="{%  url 'search' %}" method="get">
-                <div>
+        {% if user.is_authenticated %}
+            <div id="search">
+                <form action="{%  url 'search' %}" method="get">
+                    <div>
                     <input class="text" name="q" size="32" maxlength="64">
-                </div>
-            </form>
-        </div>
-        <div id="menu">
+                    </div>
+                </form>
+            </div>
+            <div id="menu">
             {% include 'navbar.html' %}
-        </div>
+            </div>
+        {% endif %}
     </div>
     <div id="page">
         <div id="content">
